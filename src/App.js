@@ -1,22 +1,44 @@
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import api from './services';
 
 function App() {
+
+const [ cursos, setCursos ] = useState([])
+
+useEffect(() => {
+  // const res = api.get('/api/v1/cursos').then(response => console.log(response.data)).then(data => console.log(data));
+  // setCursos(res.data);
+  // console.log(cursos)
+
+  // console.log(res);
+  const fetchData = async () => {
+    try {
+      const response = await api.get('/api/v1/cursos');
+      console.log(response.data);
+      setCursos(response.data);
+      console.log(cursos);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  fetchData();
+}, [])
+
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>App de teste back and front with LuizoDevScripts</h1>
+        { cursos.map((curso) => 
+          (
+            <div key={curso.id}>
+              <p>{ `O nome do curso é : ${curso.titulo}` }</p>
+              <p>{ `A URL do curso é: ${curso.url}` }</p>
+              <p>{ `Este curso foi criado em: ${curso.criacao}`}</p>
+            </div>
+          )
+        )}
       </header>
     </div>
   );
