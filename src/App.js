@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
 import api from './services';
+import GlobalStyles from './styles/GlobalStyles';
 
 function App() {
 
@@ -28,6 +28,7 @@ useEffect(() => {
 
   return (
     <div className="App">
+      <GlobalStyles />
       <header className="App-header">
         <h1>App de teste back and front with LuizoDevScripts</h1>
         { cursos.map((curso) => 
